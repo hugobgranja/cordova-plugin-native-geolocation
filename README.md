@@ -221,11 +221,6 @@ Optional parameters to customize the retrieval of the geolocation
 
 - __maximumAge__: Accept a cached position whose age is no greater than the specified time in milliseconds. _(Number)_
 
-### Android Quirks
-
-If Geolocation service is turned off the `onError` callback is invoked after `timeout` interval (if specified).
-If `timeout` parameter is not specified then no callback is called.
-
 ## navigator.geolocation.clearWatch
 
 Stop watching for changes to the device's location referenced by the
