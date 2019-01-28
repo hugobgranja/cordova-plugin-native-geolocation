@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one
+  or more contributor license agreements.  See the NOTICE file
+  distributed with this work for additional information
+  regarding copyright ownership.  The ASF licenses this file
+  to you under the Apache License, Version 2.0 (the
+  "License"); you may not use this file except in compliance
+  with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing,
+  software distributed under the License is distributed on an
+  "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+  KIND, either express or implied.  See the License for the
+  specific language governing permissions and limitations
+  under the License.
+-->
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+xmlns:rim="http://www.blackberry.com/ns/widgets"
+xmlns:android="http://schemas.android.com/apk/res/android"
+           id="cordova-plugin-native-geolocation"
+      version="1.0.0">
+
+    <name>Geolocation</name>
+    <description>Cordova Geolocation Native Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,geolocation</keywords>
+    <repo>https://github.com/hugobgranja/cordova-plugin-native-geolocation</repo>
+    <issue>https://github.com/hugobgranja/cordova-plugin-native-geolocation/issues</issue>
+
+    <engines>
+        <engine name="cordova-android" version=">=6.3.0" />
+    </engines>
+
+    <!-- android -->
+    <platform name="android">
+
+        <framework src="com.google.android.gms:play-services-location:16.0.0" />
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+            <uses-feature android:name="android.hardware.location.gps" />
+        </config-file>
+
+        <config-file target="res/xml/config.xml" parent="/*">
+          <feature name="Geolocation">
+              <param name="android-package" value="com.github.hugobgranja.Geolocation" />
+          </feature>
+        </config-file>
+
+        <source-file src="src/android/Geolocation.java" target-dir="src/com/github/hugobgranja/" />
+        <source-file src="src/android/LocationContext.java" target-dir="src/com/github/hugobgranja/" />
+        <source-file src="src/android/LocationUtils.java" target-dir="src/com/github/hugobgranja/" />
+        <source-file src="src/android/OnLocationResultEventListener.java" target-dir="src/com/github/hugobgranja/" />
+        <source-file src="src/android/LocationError.java" target-dir="src/com/github/hugobgranja/" />
+
+        <js-module src="www/Coordinates.js" name="Coordinates">
+            <clobbers target="Coordinates" />
+        </js-module>
+
+        <js-module src="www/PositionError.js" name="PositionError">
+            <clobbers target="PositionError" />
+        </js-module>
+
+        <js-module src="www/Position.js" name="Position">
+            <clobbers target="Position" />
+        </js-module>
+
+        <js-module src="www/geolocation.js" name="geolocation">
+            <clobbers target="navigator.geolocation" />
+        </js-module>
+
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+
+        <js-module src="www/Coordinates.js" name="Coordinates">
+            <clobbers target="Coordinates" />
+        </js-module>
+
+        <js-module src="www/PositionError.js" name="PositionError">
+            <clobbers target="PositionError" />
+        </js-module>
+
+        <js-module src="www/Position.js" name="Position">
+            <clobbers target="Position" />
+        </js-module>
+
+        <js-module src="www/geolocation.js" name="geolocation">
+            <clobbers target="navigator.geolocation" />
+        </js-module>
+
+        <config-file target="config.xml" parent="/*">
+                <feature name="Geolocation">
+                    <param name="ios-package" value="CDVLocation"/>
+                </feature>
+        </config-file>
+      
+        <!-- Usage description of the Location for iOS 6+, mandatory since iOS 10 -->
+        <preference name="LOCATION_WHENINUSE_USAGE_DESCRIPTION" default=" " />
+        <config-file target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
+                <string>$LOCATION_WHENINUSE_USAGE_DESCRIPTION</string>
+        </config-file>
+      
+      
+        <header-file src="src/ios/CDVLocation.h" />
+        <source-file src="src/ios/CDVLocation.m" />
+        <framework src="CoreLocation.framework" />
+
+    </platform>
+
+    <!-- windows universal apps (Windows 8.1, Windows Phone 8.1, Windows 8.0) -->
+    <platform name="windows">
+        <config-file target="package.appxmanifest" parent="/Package/Capabilities">
+            <DeviceCapability Name="location" />
+        </config-file>
+
+        <js-module src="src/windows/GeolocationProxy.js" name="GeolocationProxy">
+            <runs />
+        </js-module>
+
+        <js-module src="www/Coordinates.js" name="Coordinates">
+            <clobbers target="Coordinates" />
+        </js-module>
+
+        <js-module src="www/PositionError.js" name="PositionError">
+            <clobbers target="PositionError" />
+        </js-module>
+
+        <js-module src="www/Position.js" name="Position">
+            <clobbers target="Position" />
+        </js-module>
+
+        <js-module src="www/geolocation.js" name="geolocation">
+            <clobbers target="navigator.geolocation" />
+        </js-module>
+    </platform>
+</plugin>
