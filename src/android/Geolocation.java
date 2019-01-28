@@ -147,7 +147,7 @@ public class Geolocation extends CordovaPlugin implements OnLocationResultEventL
         request.setNumUpdates(1);
 
         // This is necessary to be able to get a response when location services are initially off and then turned on before this request.
-        request.setInterval(4000);
+        request.setInterval(0);
 
         if(enableHighAccuracy) {
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -163,11 +163,11 @@ public class Geolocation extends CordovaPlugin implements OnLocationResultEventL
     private void addWatch(LocationContext locationContext) {
         JSONArray args = locationContext.getExecuteArgs();
         boolean enableHighAccuracy = args.optBoolean(1, false);
+        long maximumAge = args.optLong(2, 5000);
+
         LocationRequest request = LocationRequest.create();
 
-        // TODO This should be an option?
-        // Note: Seems like this is not necessary here in the case of a location services reset unlike getLocation
-        request.setInterval(5000);
+        request.setInterval(maximumAge);
 
         if(enableHighAccuracy) {
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);

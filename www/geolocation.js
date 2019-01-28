@@ -205,7 +205,7 @@ var geolocation = {
             timers[id].timer = true;
         }
         
-        exec(win, fail, 'Geolocation', 'addWatch', [id, options.enableHighAccuracy]);
+        exec(win, fail, 'Geolocation', 'addWatch', [id, options.enableHighAccuracy, options.maximumAge]);
 
         return id;
     },
